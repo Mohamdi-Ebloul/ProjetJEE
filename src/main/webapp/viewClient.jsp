@@ -47,6 +47,7 @@
     <thead>
       <tr>
       <th>ID</th>
+      <th>Reference conteur</th>s
         <th>Nom</th>
         <th>Tel</th>
         <th>Ville</th>
@@ -71,6 +72,7 @@
    
       <tr>
         <td><%= s.getId() %></td>
+        <td><%= s.getReference()   %></td>
         <td><%= s.getNom()   %></td>
         <td><%= s.getTel() %></td>
         <td><%= s.getVille() %></td>

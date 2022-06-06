@@ -2,7 +2,7 @@ package factur;
 
 public class Client {
 
-	private int id,tel ;
+	private int id,tel,Reference ;
 	private String nom,ville,adresse,fil,categorie;
 	
 	
@@ -13,12 +13,22 @@ public class Client {
 		this.id = id;
 	}
  
+	public int getReference() {
+		return Reference;
+	}
+	
+	public void setReference(int Reference) {
+		this.Reference = Reference;
+	}
+	
 	public String getNom() {
 		return nom;
 	}
+	
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
 	public int getTel() {
 		return tel;
 	}

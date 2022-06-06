@@ -59,6 +59,17 @@
   </div>
 </div>
 </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Panel title</h3>
+  </div>
+  <div class="panel-body">
+    <a class="btn btn-warning btn-lg" href="Consultation.jsp" role="button">Consulter 
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+    </a>
+  </div>
+</div>
+</div>
 
 
  <div class="container">

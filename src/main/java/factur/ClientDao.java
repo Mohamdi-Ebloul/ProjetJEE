@@ -165,11 +165,12 @@ status=ps.executeUpdate();
 	      
 	    try{  
 	        Connection conn=getConnection();  
-	        PreparedStatement ps=conn.prepareStatement("SELECT * FROM `client` ");  
+	        PreparedStatement ps=conn.prepareStatement("SELECT * FROM client,compteur where client.id=compteur.code_client ");  
 	        ResultSet rs=ps.executeQuery();  
 	        while(rs.next()){  
 	        	Client s=new Client();  
-	            s.setId(rs.getInt("id"));  
+	            s.setId(rs.getInt("id"));
+	            s.setReference(rs.getInt("code_compteur")); 
 	            s.setNom(rs.getString("nom")); 
 	            s.setTel(rs.getInt("tel"));  
 	            s.setVille(rs.getString("ville"));  
@@ -220,6 +221,51 @@ status=ps.executeUpdate();
 	
 	
 	
+	static int Index_nouveau;
+	static int consomet;
+	static double Montant_nouveau;
+	static double Montant_total;
+	static double Montant_totals;
+	public static int UpdateConsommation(Consultation c){  
+	    int status=0;
+	   
+	    try{  
+	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+	    	   LocalDateTime now = LocalDateTime.now();  
+	    	  
+	        Connection conn=getConnection();  
+	        
+	        PreparedStatement ps1=conn.prepareStatement("select * from consommation where consommation.code_compteur=?");
+	        ps1.setInt(1,c.getId()); 
+	        ResultSet rs=ps1.executeQuery();  
+	        while(rs.next()){  
+	            
+	        	 Index_nouveau=rs.getInt("Index_nouveau"); 
+	        	 Montant_total=rs.getInt("Montant_total");  
+	        }
+	        consomet=c.getIndex()-Index_nouveau;
+	        Montant_nouveau=consomet*60;
+        	 Montant_totals=Montant_nouveau+Montant_total;
+
+	        
+	        
+	        PreparedStatement ps=conn.prepareStatement(  
+	 "update consommation set Index_precedent=?,Index_nouveau=?,CONSOMMATION=?,Montant_total=?,Montant_nouveau=?,date_changement=? where consommation.code_compteur=?"); 
+	    
+	        ps.setInt(1,Index_nouveau); 
+	        ps.setInt(2,c.getIndex());
+	        ps.setInt(3,consomet);
+	        ps.setDouble(4,Montant_totals);
+	        ps.setDouble(5,Montant_nouveau);
+	        ps.setString(6,dtf.format(now));    
+	        ps.setInt(7,c.getId());
+
+
+	           
+status=ps.executeUpdate();  
+	    }catch(Exception e){System.out.println(e);}  
+	    return status;  
+	}  
 	
 	
 	

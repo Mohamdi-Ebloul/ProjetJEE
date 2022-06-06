@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0fb0fa1e-3d52-496f-a37d-4d693163678c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/build/classes/factur/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/factur/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/factur/ClientDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/factur/ClientDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/factur/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/factur/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/factur/ClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/factur/ClientDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/viewClient.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/viewClient.jsp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2A9nOHT4vyVsYLBVTQJXr8yE1oj" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/LENOVO/eclipse-workspace/SystemeFactur"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0fb0fa1e-3d52-496f-a37d-4d693163678c" name="Changes" comment="" />
+      <created>1654430639619</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1654430639619</updated>
+    </task>
+    <servers />
+  </component>
+</project>
