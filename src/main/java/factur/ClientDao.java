@@ -28,108 +28,99 @@ public class ClientDao {
 		
 	}
 	
+
 	
+
 	
+	static int code_client;
+	static int code_compteur;
 	public static int save(Client s){  
 	    int status=0;  
 	    try{  
 	    	
 	        Connection conn=getConnection();  
 	        PreparedStatement ps=conn.prepareStatement(  
-	"INSERT INTO client(nom, tel, ville,Adresse,categorie,nb_fil) VALUES(?,?,?,?,?,?)");  
+	"INSERT INTO client(nom, tel, ville,Adresse,categorie) VALUES(?,?,?,?,?)");  
 	    
 	        ps.setString(1,s.getNom());  
 	        ps.setInt(2,s.getTel());  
 	        ps.setString(3,s.getVille());  
 	        ps.setString(4,s.getAdresse());  
 	        ps.setString(5,s.getCategorie());
-	        ps.setString(6,s.getFil()); 
-	        
-	        status=ps.executeUpdate();  
-	    }catch(Exception e){System.out.println(e);}  
-	    return status;  
-	}  
-	
-	
-	static int code_client;
-	public static int savecompteur(){  
-	    int status=0;
-	    
-	    try{  
-	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-	    	   LocalDateTime now = LocalDateTime.now();  
-	    	  
-	        Connection conn=getConnection();  
-	        
-	        PreparedStatement ps1=conn.prepareStatement("select max(id) as id from client");   
-	        ResultSet rs=ps1.executeQuery();  
-	        while(rs.next()){  
-	            
-	        	code_client=rs.getInt("id");  
-	        }
-	        PreparedStatement ps=conn.prepareStatement(  
-	"INSERT INTO compteur(Date_placement,code_client) VALUES(?,?)");  
-	    
-	        ps.setString(1,dtf.format(now));
-	           
-	        ps.setInt(2,code_client);
-	        
 	        
 	        
 	        status=ps.executeUpdate();  
-	    }catch(Exception e){System.out.println(e);}  
-	    return status;  
-	}  
-	
-	static int code_compteur;
-	public static int saveconsommation(){  
-	    int status=0;
-	    
-	    try{  
-	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-	    	   LocalDateTime now = LocalDateTime.now();  
-	    	  
-	        Connection conn=getConnection();  
 	        
-	        PreparedStatement ps1=conn.prepareStatement("select max(code_compteur) as code_compteur from compteur");   
-	        ResultSet rs=ps1.executeQuery();  
-	        while(rs.next()){  
-	            
-	        	code_compteur=rs.getInt("code_compteur");  
+	        if(status!=0) {
+	        	 
+		    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		    	   LocalDateTime now = LocalDateTime.now();  
+		    	   
+		        
+		        PreparedStatement ps1=conn.prepareStatement("select max(id) as id from client");   
+		        ResultSet rs=ps1.executeQuery();  
+		        while(rs.next()){  
+		            
+		        	code_client=rs.getInt("id");  
+		        }
+		        PreparedStatement ps2=conn.prepareStatement(  
+		"INSERT INTO compteur(nb_fil,Date_placement,status,code_client) VALUES(?,?,?,?)");  
+		      
+		        ps2.setInt(1,s.getFil()); 
+		        ps2.setString(2,dtf.format(now));
+		        ps2.setString(3,"Active");   
+		        ps2.setInt(4,code_client);
+		        
+		        ps2.executeUpdate(); 
+		        
+		        PreparedStatement ps3=conn.prepareStatement("select max(code_compteur) as code_compteur from compteur");   
+		        ResultSet rs2=ps3.executeQuery();  
+		        while(rs2.next()){  
+		            
+		        	code_compteur=rs2.getInt("code_compteur");  
+		        }
+		        PreparedStatement ps4=conn.prepareStatement(  
+		"INSERT INTO consommation(code_compteur,date_changement) VALUES(?,?)");  
+		    
+		        ps4.setInt(1,code_compteur);
+		        ps4.setString(2,dtf.format(now));
+		           
+	status=ps4.executeUpdate();  
+		        
+		        
 	        }
-	        PreparedStatement ps=conn.prepareStatement(  
-	"INSERT INTO consommation(code_compteur,date_changement) VALUES(?,?)");  
-	    
-	        ps.setInt(1,code_compteur);
-	        ps.setString(2,dtf.format(now));
-	           
-status=ps.executeUpdate();  
 	    }catch(Exception e){System.out.println(e);}  
 	    return status;  
 	}  
 	
 	
-	
-	
-	
-	
+
 	
 	public static int update(Client s){  
 	    int status=0;  
 	    try{  
 	        Connection conn=getConnection();  
 	        PreparedStatement ps=conn.prepareStatement(  
-	"update client set nom=?,tel=?,ville=?,adresse=?,categorie=?,nb_fil=? where id=?");  
+	"update client set nom=?,tel=?,ville=?,adresse=?,categorie=? where id=?");  
 	      
 	        ps.setString(1,s.getNom());  
 	        ps.setInt(2,s.getTel());  
 	        ps.setString(3,s.getVille());  
 	        ps.setString(4,s.getAdresse());  
 	        ps.setString(5,s.getCategorie());
-	        ps.setString(6,s.getFil()); 
-	        ps.setInt(7,s.getId()); 
+	        ps.setInt(6,s.getId()); 
 	        
-	        status=ps.executeUpdate();  
+	        status=ps.executeUpdate(); 
+	        PreparedStatement ps1=conn.prepareStatement(  
+	        		"update compteur set nb_fil=? where code_client=?");  
+	        		      
+	        		          
+	        		        ps1.setInt(1,s.getFil());  
+	        		        
+	        		        ps1.setInt(2,s.getId()); 
+	        		        
+	        		        status=ps1.executeUpdate(); 
+	        
 	    }catch(Exception e){System.out.println(e);}  
 	    return status;  
 	}  
@@ -170,31 +161,21 @@ status=ps.executeUpdate();
 	        while(rs.next()){  
 	        	Client s=new Client();  
 	            s.setId(rs.getInt("id"));
-	            s.setReference(rs.getInt("code_compteur")); 
+	            s.setReference(rs.getInt("code_compteur"));
+	            s.setFil(rs.getInt("nb_fil")); 
 	            s.setNom(rs.getString("nom")); 
 	            s.setTel(rs.getInt("tel"));  
 	            s.setVille(rs.getString("ville"));  
 	            s.setAdresse(rs.getString("Adresse"));  
 	            s.setCategorie(rs.getString("categorie"));  
-	            s.setFil(rs.getString("nb_fil"));  
+	             
 	            list.add(s);  
 	        }  
 	    }catch(Exception e){System.out.println(e);}  
 	    return list;  
 	}  
 	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -202,8 +183,9 @@ status=ps.executeUpdate();
 		Client s=null;  
 	    try{  
 	        Connection conn=getConnection();  
-	        PreparedStatement ps=conn.prepareStatement("select * from client where id=?");  
-	        ps.setInt(1,id);  
+	        PreparedStatement ps=conn.prepareStatement("select * from client,compteur where id=? and compteur.code_client=?");  
+	        ps.setInt(1,id);
+	        ps.setInt(2,id);
 	        ResultSet rs=ps.executeQuery();  
 	        while(rs.next()){  
 	            s=new Client();  
@@ -213,7 +195,7 @@ status=ps.executeUpdate();
 	            s.setVille(rs.getString("ville"));  
 	            s.setAdresse(rs.getString("Adresse"));
 	            s.setCategorie(rs.getString("categorie"));
-	            s.setFil(rs.getString("nb_fil"));
+	            s.setFil(rs.getInt("nb_fil"));
 	        }  
 	    }catch(Exception e){System.out.println(e);}  
 	    return s;  
@@ -221,62 +203,8 @@ status=ps.executeUpdate();
 	
 	
 	
-	static int Index_nouveau;
-	static int consomet;
-	static double Montant_nouveau;
-	static double Montant_total;
-	static double Montant_totals;
-	public static int UpdateConsommation(Consultation c){  
-	    int status=0;
-	   
-	    try{  
-	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-	    	   LocalDateTime now = LocalDateTime.now();  
-	    	  
-	        Connection conn=getConnection();  
-	        
-	        PreparedStatement ps1=conn.prepareStatement("select * from consommation where consommation.code_compteur=?");
-	        ps1.setInt(1,c.getId()); 
-	        ResultSet rs=ps1.executeQuery();  
-	        while(rs.next()){  
-	            
-	        	 Index_nouveau=rs.getInt("Index_nouveau"); 
-	        	 Montant_total=rs.getInt("Montant_total");  
-	        }
-	        consomet=c.getIndex()-Index_nouveau;
-	        Montant_nouveau=consomet*60;
-        	 Montant_totals=Montant_nouveau+Montant_total;
+	
 
-	        
-	        
-	        PreparedStatement ps=conn.prepareStatement(  
-	 "update consommation set Index_precedent=?,Index_nouveau=?,CONSOMMATION=?,Montant_total=?,Montant_nouveau=?,date_changement=? where consommation.code_compteur=?"); 
-	    
-	        ps.setInt(1,Index_nouveau); 
-	        ps.setInt(2,c.getIndex());
-	        ps.setInt(3,consomet);
-	        ps.setDouble(4,Montant_totals);
-	        ps.setDouble(5,Montant_nouveau);
-	        ps.setString(6,dtf.format(now));    
-	        ps.setInt(7,c.getId());
-
-
-	           
-status=ps.executeUpdate();  
-	    }catch(Exception e){System.out.println(e);}  
-	    return status;  
-	}  
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

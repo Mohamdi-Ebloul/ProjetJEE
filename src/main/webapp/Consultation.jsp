@@ -8,14 +8,14 @@
 <body>
 
 
-<%@page import="factur.ClientDao" %>
+<%@page import="factur.ConsultationDAO" %>
 <jsp:useBean id="c" class="factur.Consultation"></jsp:useBean>
 <jsp:setProperty property="*" name="c"/>
 
 
 
 <%
-int num = ClientDao.UpdateConsommation(c);
+int num = ConsultationDAO.UpdateConsommation(c);
 
 if(num>0){
 	response.sendRedirect("ConsultationAdd.jsp");

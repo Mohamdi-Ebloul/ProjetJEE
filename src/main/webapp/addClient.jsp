@@ -16,10 +16,7 @@
 
 <%
 int num = ClientDao.save(s);
-if(num>0){
-	ClientDao.savecompteur();
-	ClientDao.saveconsommation();
-}
+
 if(num>0){
 	response.sendRedirect("ClientAdded.jsp");
 }else{

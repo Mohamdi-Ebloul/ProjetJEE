@@ -2,8 +2,13 @@ package factur;
 
 public class Client {
 
-	private int id,tel,Reference ;
-	private String nom,ville,adresse,fil,categorie;
+	private int id,tel,Reference,fil ;
+	private String nom,ville,adresse,categorie;
+	private String statu,d;
+	private String mois,annee;
+	
+	
+	
 	
 	
 	public int getId() {
@@ -54,14 +59,32 @@ public class Client {
 		this.categorie = categorie;
 	}
 	
-	public String getFil() {
+	public int getFil() {
 		return fil;
 	}
-	public void setFil(String fil) {
+	public void setFil(int fil) {
 		this.fil=fil;
 	}
 	
 	
+	public void setS(String d) {
+		this.d = d;
+	}
+	public String getS() {
+		return d;
+	}
+	public String getAnnee() {
+		return annee;
+	}
+	public void setAnnee(String annee) {
+		this.annee = annee;
+	}
+	public String getMois() {
+		return mois;
+	}
+	public void setMois(String mois) {
+		this.mois = mois;
+	}
 	
 	
 	

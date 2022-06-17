@@ -47,7 +47,7 @@
     <thead>
       <tr>
       <th>ID</th>
-      <th>Reference conteur</th>s
+      <th>Reference conteur</th>
         <th>Nom</th>
         <th>Tel</th>
         <th>Ville</th>

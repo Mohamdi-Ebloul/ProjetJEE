@@ -53,10 +53,10 @@
  <td >    Nombre de fil</td>
  <td align="right"> <select name="fil" >
  
-  <option value="2 File">2 File</option>
-  <option value="4 File">4 File</option>
-  <option value="8 File">8 File</option>
-  <option value="10 File">10 File</option>
+  <option value="2">2 File</option>
+  <option value="4">4 File</option>
+  <option value="8">8 File</option>
+  <option value="10">10 File</option>
 </select></td><td align="right"><%= s.getFil() %>
  </td></tr></table>
   
