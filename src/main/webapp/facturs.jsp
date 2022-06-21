@@ -30,17 +30,9 @@
 
 
  
-<div class="container">
-  <div class="jumbotron">
-     
-    <h1>Les Facturs</h1>  
-  </div>
- 
-</div>
 
 
-
-<div class="container">
+<div class="container" style=" height: 600px;width: 100%;sbackground-color: powderblue;">
  
   <p>Les Facturs :</p>            
   <table class="table table-bordered">
@@ -86,7 +78,7 @@
         <td><%= s.getMois() %></td>
         <td><%= s.getAnne() %></td>
         <td><%= s.getDate() %></td>
-       <td><a href=" viewFactur.jsp?id=<%= s.getCode_factur() %>">View</a></td>
+       <td><a href=" viewFactur.jsp?id=<%= s.getCode_factur() %>" target="home" >View</a></td>
       
       
       </tr>

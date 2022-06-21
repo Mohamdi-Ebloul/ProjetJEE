@@ -176,6 +176,23 @@ public class ClientDao {
 	}  
 	
 
+
+	static int R=0;
+	public static int selectbyid(Client c){ 
+		
+	
+		try { Connection conn=getConnection(); 
+		 PreparedStatement ps1=conn.prepareStatement("select * from client,compteur where compteur.code_compteur=?");
+	        ps1.setInt(1,c.getId());
+	        
+	        ResultSet rs=ps1.executeQuery();  
+	        while(rs.next()){  
+	        	 
+	        	R=rs.getInt("code_client"); 
+	        }
+		}catch(Exception e){System.out.println(e);} 
+	    return R;  
+	}  
 	
 	
 	

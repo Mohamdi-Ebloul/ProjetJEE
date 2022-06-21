@@ -43,22 +43,22 @@
   
    <table width="20%"> <tr><td>Categorie </td>
  <td align="right"> <select name="categorie" >
+  <option value="<%=s.getCategorie() %>"><%=s.getCategorie() %></option>
   <option value="Maison">Maison</option>
   <option value="Societe">Societe</option>
-</select></td><td align="right"><%=s.getCategorie() %></td></tr></table> 
+</select></td></tr></table> 
 <p>
 
 </p>
    <table width="20%" > <tr>
  <td >    Nombre de fil</td>
  <td align="right"> <select name="fil" >
- 
+  <option value="<%= s.getFil() %>"><%= s.getFil() %> File</option>
   <option value="2">2 File</option>
   <option value="4">4 File</option>
   <option value="8">8 File</option>
   <option value="10">10 File</option>
-</select></td><td align="right"><%= s.getFil() %>
- </td></tr></table>
+</select></td></tr></table>
   
   
   <input type="submit" value="Edit" class="btn btn-primary btn-lg pull-right">

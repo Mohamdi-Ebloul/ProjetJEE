@@ -1,8 +1,10 @@
 package factur;
 
 public class Factur {
-private int id, code_factur,code_compteur,index_nouveau,
+private int id, code_factur,code_compteur,index_nouveau,fil,
 index_precedent,CONSOMMATION;
+private String nom,adresse;
+
 private double Montant_total,Montant_nouveau,TVA;
 private String mois,anne,date;
 public int getCode_factur() {
@@ -76,7 +78,25 @@ public int getId() {
 }
 public void setId(int id) {
 	this.id = id;
-} 
+}
+public String getNom() {
+	return nom;
+}
+public void setNom(String nom) {
+	this.nom = nom;
+}
+public String getAdresse() {
+	return adresse;
+}
+public void setAdresse(String adresse) {
+	this.adresse = adresse;
+}
+public int getFil() {
+	return fil;
+}
+public void setFil(int fil) {
+	this.fil = fil;
+}
 
 
 

@@ -65,7 +65,7 @@ public static Connection getConnection(){
 	    return s;  
 	}  
 
-	
+	static int change=0;
 	public static Client activesatus(int id){  
 		Client s=null; 
 		int code=0;
@@ -75,20 +75,16 @@ public static Connection getConnection(){
 
 	        ps2.setString(1,"active");  
 	        ps2.setInt(2,id);            
-	         ps2.executeUpdate();
+	        change= ps2.executeUpdate();
 	    
-	         PreparedStatement ps1=conn.prepareStatement("select * from client,compteur where compteur.code_compteur=?");
-		        ps1.setInt(1,id);
-		        
-		        ResultSet rs1=ps1.executeQuery();  
-		        while(rs1.next()){  
-		        	 
-		        	code=rs1.getInt("code_client"); 
-		        }
+	        String ch="";
+    		if(change!=0) {
+    		
+    			ch="Abonnement activer";
+    		}
 	         
-	         
-	        PreparedStatement ps=conn.prepareStatement("select * from compteur where compteur.code_client=?");  
-	        ps.setInt(1,code);
+	        PreparedStatement ps=conn.prepareStatement("select * from compteur where compteur.code_compteur=?");  
+	        ps.setInt(1,id);
 	        
 	        ResultSet rs=ps.executeQuery();  
 	        while(rs.next()){  
@@ -97,47 +93,65 @@ public static Connection getConnection(){
 	             
 	            s.setS(rs.getString("status"));  
 	            
-	        }  
+	        }  s.setChange(ch);
 	    }catch(Exception e){System.out.println(e);}  
 	    return s;  
 	}  
 	
 	
-	
+	static double Montant_totals;	
 	public static Client desactivesatus(int id){  
 		Client s=null; 
 		int code=0;
 	    try{  
-	        Connection conn=getConnection();  
+	        Connection conn=getConnection();
+	        
+	        PreparedStatement ps1=conn.prepareStatement("select * from consommation,compteur where consommation.code_compteur=? and compteur.code_compteur=?");
+	        ps1.setInt(1,id);
+	        ps1.setInt(2,id); 
+	        ResultSet rs1=ps1.executeQuery();  
+	        while(rs1.next()){  
+	            
+	        	
+	        	 Montant_totals=rs1.getInt("Montant_total");
+	        	
+	        }
+	        
+	        if(Montant_totals<=0) {
+	        
 	        PreparedStatement ps2=conn.prepareStatement( "update compteur set status=? where compteur.code_compteur=?"); 
-
-	        ps2.setString(1,"Nom active");  
+           
+	        ps2.setString(1,"Non active");  
 	        ps2.setInt(2,id);            
-	         ps2.executeUpdate();
+	         change=ps2.executeUpdate();
 	    
-	         PreparedStatement ps1=conn.prepareStatement("select * from client,compteur where compteur.code_compteur=?");
-		        ps1.setInt(1,id);
+	        }
 		        
-		        ResultSet rs1=ps1.executeQuery();  
-		        while(rs1.next()){  
-		        	 
-		        	code=rs1.getInt("code_client"); 
-		        }
+	        
+	    		String ch="";
+	    		if(change==0) {
+	    		ch="Impossible de des activer Abonnement";
+	    		}
+	    		else {
+	    			ch="Abonnement desactiver";
+	    		}
+	    	
 	         
-	         
-	        PreparedStatement ps=conn.prepareStatement("select * from compteur where compteur.code_client=?");  
-	        ps.setInt(1,code);
+	        PreparedStatement ps=conn.prepareStatement("select * from compteur where compteur.code_compteur=?");  
+	        ps.setInt(1,id);
 	        
 	        ResultSet rs=ps.executeQuery();  
 	        while(rs.next()){  
 	            s=new Client();  
 	            s.setReference(rs.getInt("code_compteur"));  
-	             
-	            s.setS(rs.getString("status"));  
 	            
-	        }  
+	            s.setS(rs.getString("status"));
+	            
+	            
+	        }  s.setChange(ch);
 	    }catch(Exception e){System.out.println(e);}  
 	    return s;  
-	}  
+	}
+	
 	
 }

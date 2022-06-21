@@ -27,7 +27,7 @@ public class ConsultationDAO {
 	}
 	
 
-	
+	static int change=0;
 	static int Index_precedent;
 	static int consomet;
 	static double Montant_nouveau;
@@ -35,8 +35,11 @@ public class ConsultationDAO {
 	static double Montant_totals;
 	static double tva;
 	static int nb_fil;
+	static  int status=0;
+	static double exoneration,eclairage,redevence,prime;
 	public static int UpdateConsommation(Consultation c){  
-	    int status=0;
+	  
+	    String statu="";
 	   
 	    try{  
 	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
@@ -53,14 +56,19 @@ public class ConsultationDAO {
 	        	Index_precedent=rs.getInt("Index_nouveau"); 
 	        	 Montant_total=rs.getInt("Montant_total");
 	        	 nb_fil=rs.getInt("nb_fil");
+	        	 statu=rs.getString("status");
 	        }
 	        consomet=c.getIndex()-Index_precedent;
-	        Montant_nouveau=consomet*15*nb_fil;
-	        tva=2000.0;
-        	 Montant_totals=Montant_nouveau+Montant_total+tva;
+	        prime=330+46.2;
+	        redevence=80.8+11.2;
+	        eclairage=(consomet*0.072)+7.2;
+	        exoneration=247.8;  
+	        tva=prime+redevence+eclairage-exoneration;
+	        Montant_nouveau=(consomet*15*nb_fil)+tva;
+        	 Montant_totals=Montant_nouveau+Montant_total;
         	 
 
-	       if(c.getIndex()>Index_precedent){  
+	       if((c.getIndex()>Index_precedent)||(statu=="active")){  
 	        
 	        PreparedStatement ps=conn.prepareStatement(  
 	 "update consommation set Index_precedent=?,Index_nouveau=?,CONSOMMATION=?,Montant_total=?,Montant_nouveau=?,TVA=?,date_changement=? where consommation.code_compteur=?"); 
@@ -99,6 +107,9 @@ ps3.setString(10,dtf.format(now));
 
 status=ps3.executeUpdate();}
 	   }
+	    
+	    
+	    	   
 	    }catch(Exception e){System.out.println(e);}  
 	    return status;  
 	}  

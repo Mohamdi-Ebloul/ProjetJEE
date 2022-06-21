@@ -6,7 +6,7 @@ public class Client {
 	private String nom,ville,adresse,categorie;
 	private String statu,d;
 	private String mois,annee;
-	
+	private String change;
 	
 	
 	
@@ -84,6 +84,12 @@ public class Client {
 	}
 	public void setMois(String mois) {
 		this.mois = mois;
+	}
+	public String getChange() {
+		return change;
+	}
+	public void setChange(String change) {
+		this.change = change;
 	}
 	
 	

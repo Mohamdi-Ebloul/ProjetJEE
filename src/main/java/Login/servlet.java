@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -44,11 +45,12 @@ public class servlet extends jakarta.servlet.http.HttpServlet {
 		if (dao.validate(login))
 		{
 			response.sendRedirect("index.jsp");
-			
+			HttpSession session=request.getSession();  
+	        session.setAttribute("name",username);  
 		}
 		else 
 		{
-			//HttpSession session = request.getSession();
+			
 			response.sendRedirect("login.jsp");
 			
 		}

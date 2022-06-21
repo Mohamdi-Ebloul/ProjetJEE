@@ -3,6 +3,7 @@ package factur;
 public class Consultation {
 	
 	private int id,index;
+	private String change;
 	
 	
 	public int getId() {
@@ -16,6 +17,12 @@ public class Consultation {
 	}
 	public int getIndex() {
 		return index;
+	}
+	public String getChange() {
+		return change;
+	}
+	public void setChange(String change) {
+		this.change = change;
 	}
 	
 	

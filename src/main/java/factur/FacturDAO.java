@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +53,10 @@ public class FacturDAO {
 	
 	public static Factur FacturById(int id){  
 		Factur f=null;  
+		
 	    try{  
 	        Connection conn=getConnection();  
-	        PreparedStatement ps=conn.prepareStatement("select * from factur where code_factur=?");  
+	        PreparedStatement ps=conn.prepareStatement("select * from factur,compteur,client where code_factur=? and factur.code_compteur=compteur.code_compteur and compteur.code_client=client.id");  
 	        ps.setInt(1,id);
 	        
 	        ResultSet rs=ps.executeQuery();  
@@ -64,12 +67,15 @@ public class FacturDAO {
 	            f.setIndex_nouveau(rs.getInt("index_nouveau"));
 	            f.setIndex_precedent(rs.getInt("index_precedent"));
 	            f.setCONSOMMATION(rs.getInt("CONSOMMATION"));
-	            f.setMontant_total(rs.getDouble("Montant_nouveau"));
+	            f.setMontant_total(rs.getDouble("Montant_total"));
+	            f.setMontant_nouveau(rs.getDouble("Montant_nouveau"));
 	            f.setTVA(rs.getDouble("TVA"));
 	            f.setMois(rs.getString("mois"));
 	            f.setAnne(rs.getString("annee"));
 	            f.setDate(rs.getString("date"));
-	              
+	            f.setNom(rs.getString("nom"));
+	            f.setAdresse(rs.getString("Adresse"));
+	            f.setFil(rs.getInt("nb_fil"));
 	            
 	        }  
 	    }catch(Exception e){System.out.println(e);}  
@@ -79,7 +85,7 @@ public class FacturDAO {
 	
 	public static List<Factur> getAllRecords(int id){  
 	    List<Factur> list=new ArrayList<Factur>();  
-	      
+	     
 	    try{  
 	        Connection conn=getConnection();  
 	         
@@ -106,5 +112,38 @@ public class FacturDAO {
 	    return list;  
 	}  
 	
+	
+
+	public static List<Factur> getAllRecords(){  
+	    List<Factur> list=new ArrayList<Factur>();  
+	    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");  
+	 	   LocalDateTime now = LocalDateTime.now();
+	    try{  
+	    	Connection conn=getConnection();  
+	        PreparedStatement ps=conn.prepareStatement("select * from factur,compteur,client where mois=dtf.format(now) and factur.code_compteur=compteur.code_compteur and compteur.code_client=client.id ");  
+	        
+	        
+	        ResultSet rs=ps.executeQuery();  
+	        while(rs.next()){  
+	            Factur f=new Factur();
+	            f.setCode_factur(rs.getInt("code_factur"));
+	            f.setCode_compteur(rs.getInt("code_compteur"));
+	            f.setIndex_nouveau(rs.getInt("index_nouveau"));
+	            f.setIndex_precedent(rs.getInt("index_precedent"));
+	            f.setCONSOMMATION(rs.getInt("CONSOMMATION"));
+	            f.setMontant_total(rs.getDouble("Montant_total"));
+	            f.setMontant_nouveau(rs.getDouble("Montant_nouveau"));
+	            f.setTVA(rs.getDouble("TVA"));
+	            f.setMois(rs.getString("mois"));
+	            f.setAnne(rs.getString("annee"));
+	            f.setDate(rs.getString("date"));
+	            f.setNom(rs.getString("nom"));
+	            f.setAdresse(rs.getString("Adresse"));
+	            f.setFil(rs.getInt("nb_fil"));
+	            list.add(f);  
+	        }  
+	    }catch(Exception e){System.out.println(e);}  
+	    return list;  
+	}  
 	
 }

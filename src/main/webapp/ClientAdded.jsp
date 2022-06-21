@@ -3,13 +3,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script>
+
+function Create() {
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Abonnement Create',
+        showConfirmButton: false,
+        timer: 2500
+    })
+} </script> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Student Added</title>
+<title>Abonnementt</title>
 </head>
-<body>
+<body >
 
+<script type="text/javascript">
+Create();
+</script>
+  
 
-<h1>Done successfully !</h1>  
+ 
 <jsp:include page="ClientForm.html"></jsp:include>
 
 

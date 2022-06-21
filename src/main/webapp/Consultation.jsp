@@ -20,8 +20,9 @@ int num = ConsultationDAO.UpdateConsommation(c);
 if(num>0){
 	response.sendRedirect("ConsultationAdd.jsp");
 }else{
-	response.sendRedirect("ConsultationFaild.jsp");
-}
+	
+	response.sendRedirect("ConsultationFaild.jsp");}
+
 %>
 
 
