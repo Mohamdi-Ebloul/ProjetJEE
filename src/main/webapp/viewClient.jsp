@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="content-type" content="text/html">
-<title>All Client</title>
+<title>Liste Client</title>
  <link href="css/bootstrap.min.css" rel="stylesheet">
  
 </head>
@@ -23,7 +23,7 @@
 <div class="container">
   <div class="jumbotron">
      
-    <h1>All Client</h1>  
+    <h1>Liste Client</h1>  
   </div>
  
 </div>
@@ -47,7 +47,7 @@
     <thead>
       <tr>
       <th>ID</th>
-      <th>Reference conteur</th>
+      <th>Reference compteur</th>
         <th>Nom</th>
         <th>Tel</th>
         <th>Ville</th>
