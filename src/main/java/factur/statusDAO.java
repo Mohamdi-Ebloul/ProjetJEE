@@ -132,7 +132,7 @@ public static Connection getConnection(){
 	    		if(change==0) {
 	    		ch="Impossible de des activer Abonnement";
 	    		}
-	    		else {
+	    		if(change>0) {
 	    			ch="Abonnement desactiver";
 	    		}
 	    	

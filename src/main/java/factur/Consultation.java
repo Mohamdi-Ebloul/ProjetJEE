@@ -4,7 +4,7 @@ public class Consultation {
 	
 	private int id,index;
 	private String change;
-	
+	private int M,p;
 	
 	public int getId() {
 		return id;
@@ -23,6 +23,18 @@ public class Consultation {
 	}
 	public void setChange(String change) {
 		this.change = change;
+	}
+	public int getP() {
+		return p;
+	}
+	public void setP(int p) {
+		this.p = p;
+	}
+	public int getM() {
+		return M;
+	}
+	public void setM(int m) {
+		M = m;
 	}
 	
 	

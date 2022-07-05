@@ -5,7 +5,7 @@
 <head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Edit Client</title>
+<title>Activer Status</title>
  <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>

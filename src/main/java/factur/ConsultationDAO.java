@@ -37,6 +37,7 @@ public class ConsultationDAO {
 	static int nb_fil;
 	static  int status=0;
 	static double exoneration,eclairage,redevence,prime;
+	
 	public static int UpdateConsommation(Consultation c){  
 	  
 	    String statu="";
@@ -112,7 +113,72 @@ status=ps3.executeUpdate();}
 	    	   
 	    }catch(Exception e){System.out.println(e);}  
 	    return status;  
-	}  
-		
+	} 
 	
+		
+public static int payer(Consultation c){  
+		  
+	    String statu="";
+	   
+	    try{  
+	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+	    	   LocalDateTime now = LocalDateTime.now();  
+	    	  
+	        Connection conn=getConnection();  
+	        
+	        PreparedStatement ps1=conn.prepareStatement("select * from consommation,compteur where consommation.code_compteur=? and compteur.code_compteur=?");
+	        ps1.setInt(1,c.getId());
+	        ps1.setInt(2,c.getId()); 
+	        ResultSet rs=ps1.executeQuery();  
+	        while(rs.next()){  
+	            
+	        	
+	        	 Montant_total=rs.getInt("Montant_total");
+	        	
+	        }
+	        
+        	 Montant_totals=Montant_total-c.getIndex();
+        	 
+
+	        
+	        PreparedStatement ps=conn.prepareStatement(  
+	 "update consommation set Montant_total=? where consommation.code_compteur=?"); 
+	    
+	       
+	        ps.setDouble(1,Montant_totals);
+	        
+	        ps.setInt(2,c.getId());
+
+
+	           
+status=ps.executeUpdate();
+
+ 
+
+
+
+
+PreparedStatement ps3=conn.prepareStatement(  
+		"INSERT INTO payer(montant,montant_total,code_compteur,Date) VALUES(?,?,?,?)");  
+
+
+
+ps3.setDouble(1,c.getIndex());
+
+ps3.setDouble(2,Montant_totals);
+        
+ps3.setInt(3,c.getId());
+ps3.setString(4,dtf.format(now)); 
+status=ps3.executeUpdate();
+	   
+	    
+	    
+	    	   
+	    }catch(Exception e){System.out.println(e);}  
+	    return status;  
+	}  
+	
+	
+	
+		
 }

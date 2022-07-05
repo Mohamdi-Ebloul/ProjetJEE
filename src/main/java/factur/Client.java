@@ -7,6 +7,7 @@ public class Client {
 	private String statu,d;
 	private String mois,annee;
 	private String change;
+	private int dd,M;
 	
 	
 	
@@ -90,6 +91,18 @@ public class Client {
 	}
 	public void setChange(String change) {
 		this.change = change;
+	}
+	public int getM() {
+		return M;
+	}
+	public void setM(int m) {
+		M = m;
+	}
+	public int getDd() {
+		return dd;
+	}
+	public void setDd(int dd) {
+		this.dd = dd;
 	}
 	
 	

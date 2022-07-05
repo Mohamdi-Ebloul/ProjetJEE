@@ -101,7 +101,8 @@ public class FacturDAO {
 	            f.setIndex_nouveau(rs.getInt("index_nouveau"));
 	            f.setIndex_precedent(rs.getInt("index_precedent"));
 	            f.setCONSOMMATION(rs.getInt("CONSOMMATION"));
-	            f.setMontant_total(rs.getDouble("Montant_nouveau"));
+	            f.setMontant_total(rs.getDouble("Montant_total"));
+	            f.setMontant_nouveau(rs.getDouble("Montant_nouveau"));
 	            f.setTVA(rs.getDouble("TVA"));
 	            f.setMois(rs.getString("mois"));
 	            f.setAnne(rs.getString("annee"));
@@ -145,5 +146,86 @@ public class FacturDAO {
 	    }catch(Exception e){System.out.println(e);}  
 	    return list;  
 	}  
+	
+	
+	
+
+
+	
+	static int c=0;
+	public static int recubyid(){ 
+		
+	
+		try { Connection conn=getConnection(); 
+		 PreparedStatement ps1=conn.prepareStatement("select * from payer");
+	      
+	        ResultSet rs=ps1.executeQuery();  
+	        while(rs.next()){  
+	        	 
+	        	c=rs.getInt("id"); 
+	        }
+		}catch(Exception e){System.out.println(e);} 
+	    return c;  
+	}  
+	
+	
+	
+	public static Factur recuById(int id){  
+		Factur f=null;  
+		
+	    try{  
+	        Connection conn=getConnection();  
+	        PreparedStatement ps=conn.prepareStatement("select * from payer,compteur,client where payer.id=? and payer.code_compteur=compteur.code_compteur and compteur.code_client=client.id");  
+	        ps.setInt(1,id);
+	        
+	        ResultSet rs=ps.executeQuery();  
+	        while(rs.next()){  
+	            f=new Factur();
+	            f.setCode_factur(rs.getInt("id"));
+
+	            f.setCode_compteur(rs.getInt("code_compteur"));
+	            f.setMontant_total(rs.getDouble("montant_total"));
+	            f.setMontant_nouveau(rs.getDouble("montant"));
+	           
+	            f.setDate(rs.getString("Date"));
+	            f.setNom(rs.getString("nom"));
+	            f.setAdresse(rs.getString("Adresse"));
+	            f.setFil(rs.getInt("nb_fil"));
+	            
+	        }  
+	    }catch(Exception e){System.out.println(e);}  
+	    return f;  
+	}  
+	
+	
+	public static List<Factur> AllRecords(int id){  
+	    List<Factur> list=new ArrayList<Factur>();  
+	     
+	    try{  
+	        Connection conn=getConnection();  
+	         
+	        PreparedStatement ps=conn.prepareStatement("select * from payer where code_compteur=?");  
+	        ps.setInt(1,id);
+	        
+	        ResultSet rs=ps.executeQuery();  
+	        while(rs.next()){ 
+	        	
+	        	Factur f=new Factur();
+	            f.setCode_factur(rs.getInt("id"));
+	            f.setCode_compteur(rs.getInt("code_compteur"));
+	        
+	            f.setMontant_total(rs.getDouble("montant_total"));
+	            f.setMontant_nouveau(rs.getDouble("montant"));
+	         
+	            f.setDate(rs.getString("date"));
+	            list.add(f);  
+	        }  
+	    }catch(Exception e){System.out.println(e);}  
+	    return list;  
+	}  
+	
+	
+	
+	
 	
 }

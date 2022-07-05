@@ -71,14 +71,14 @@ function imprimer(divName) {
 
 
 <%
-int num = FacturDAO.selectbyid(c);
+int num = FacturDAO.recubyid();
 
 
 %>
   
 <%
   
-    Factur s=FacturDAO.FacturById(num);
+    Factur s=FacturDAO.recuById(num);
   %> 
 
 
@@ -88,7 +88,7 @@ int num = FacturDAO.selectbyid(c);
 
 
 <table id="t1" width="60%"  align="center" >
-<tr ><td style=" width:100%;"  align="center">FACTURE ELECTRICITE</td></tr>
+<tr ><td style=" width:100%;"  align="center">RECUS ELECTRICITE</td></tr>
 </table >
 
 <table width="100%" align="center"><tr style=" height: 140px;vertical-align:top;width:40px;"><td>
@@ -96,7 +96,7 @@ int num = FacturDAO.selectbyid(c);
 <table   width=90%  align=center>
 <tr><td style=" width:50%;"><div id=div1>
 <table>
-<tr><td width=15%>Mois de Releve</td><td width=40%><%=s.getMois() %>/<%=s.getAnne() %></td></tr>
+<tr><td width=15%>Mois de Releve</td></tr>
 <tr><td>Tel.Renseignem</td><td>00000000</td></tr>
 <tr ><td>Tel.Depar Elec</td><td>00000000</td></tr>
 </table></div>
@@ -115,21 +115,11 @@ int num = FacturDAO.selectbyid(c);
 <tr ><td>
 
 <table width=90%  align=center>
-<tr id=tr1><td>CONSOMMATION ENREGISTREE</td><td></td><td></td><td id=td1>Ancien Index</td><td id=td1>Nouvel Index</td><td id=td1>Consommation</td></tr>
-<tr style=" height: 60px;vertical-align:top;"><td >CONSOMMATION ELECTRICITE RELEVE</td><td></td><td></td><td id=td1><%=s.getIndex_precedent() %></td><td id=td1><%=s.getIndex_nouveau() %></td><td id=td1><%=s.getCONSOMMATION() %></td></tr>
 
 
-
-
-<tr id=tr1><td>FACTURATION CONSOMMATION </td><td id=td1>Consommation</td><td id=td1>Prix Unitaire</td><td id=td1>Montant Bruts</td id=td1><td>Montants des Taxes</td><td id=td1>Montants T.T.C</td></tr>
-<tr><td>ELEC TARIF  </td><td id=td1><%=s.getCONSOMMATION() %></td><td id=td1><%=s.getFil()*15 %></td><td id=td1><%=s.getCONSOMMATION()*s.getFil()*15 %></td><td id=td1>595.8</td><td id=td1><%=s.getCONSOMMATION()*s.getFil()*15+595.8 %></td></tr>
-<tr><td>PRIME FIXE ELECTRICITE </td><td id=td1></td><td id=td1>165.0</td><td id=td1>330.0</td><td id=td1>46.2</td><td id=td1>376.2</td></tr>
-<tr><td>REDEVENCE DE GESTION ELEC </td><td id=td1></td><td id=td1>40.400</td><td id=td1>80.8</td><td id=td1>11.2</td><td id=td1>92.0</td></tr>
-<tr><td>ECLAIRAGE PUBLIC </td><td id=td1><%=s.getCONSOMMATION() %></td><td id=td1>0.072</td><td id=td1><%=s.getCONSOMMATION()*0.072 %></td><td id=td1>7.2</td><td id=td1><%=s.getCONSOMMATION()*0.072+7.2 %></td></tr>
-<tr style=" height: 40px;vertical-align:top;width:40px;"><td style=" width:40%;">EXONERATION TAXE ELEC </td><td id=td1></td><td id=td1></td><td id=td1></td><td id=td1></td ><td id=td1>-247.8</td></tr>
-<tr><td></td><td></td><td></td><td></td><td>TOTAL FACTURE </td><td align=right id=td2><%=s.getMontant_nouveau()%></td></tr>
-<tr><td></td><td></td><td></td><td></td><td>ARRIERE </td><td align=right id=td2><%=s.getMontant_total()-s.getMontant_nouveau()%></td></tr>
-<tr><td></td><td></td><td></td><td></td><td>TOTAL A PAYER </td><td align=right id=td2><%=s.getMontant_total() %></td></tr>
+<tr><td></td><td></td><td></td><td></td><td>Montant TOTAL </td><td align=right id=td2><%=s.getMontant_total()+s.getMontant_nouveau()%></td></tr>
+<tr><td></td><td></td><td></td><td></td><td>Montant payee </td><td align=right id=td2><%=s.getMontant_nouveau()%></td></tr>
+<tr><td></td><td></td><td></td><td></td><td>Montant Aprer paiement </td><td align=right id=td2><%=s.getMontant_total() %></td></tr>
 </table>
 
 
@@ -138,7 +128,7 @@ int num = FacturDAO.selectbyid(c);
 </div><br>
 <table id="t2" width="90%"  align="center" >
 <tr ><td style=" width:50%;"  align="left"> <button id=b2 onClick="imprimer('sectionAimprimer')"><img alt="" src="navbar/imprimer.png"></button></td>
-<td align=right> <a href=" facturs.jsp?id=<%=s.getCode_compteur() %>" target="home" ><button id=b>tout les facture de ces reference</button></a></td>
+<td align=right> <a href=" Recuss.jsp?id=<%=s.getCode_compteur() %>" target="home" ><button id=b>tout les Payment de ces reference</button></a></td>
 
 </tr>
 </table >

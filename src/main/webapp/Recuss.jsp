@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Status</title>
+<title>Recus</title>
  <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -34,20 +34,16 @@
 
 <div class="container" style=" height: 600px;width: 100%;sbackground-color: powderblue;">
  
-  <p>Les Facturs :</p>            
+  <p>Les Recus :</p>            
   <table class="table table-bordered">
     <thead>
       <tr>
-      <th>Code factur</th>
+      <th>Code Recu</th>
       <th>Reference</th>
-        <th>Index nouveau</th>
-        <th>Ansien Index </th>
-        <th>Consomation</th>
+       
         <th> Montant Total</th>
-        <th>Montant Nouveau</th>
-        <th>TVA</th>
-        <th>Mois</th>
-        <th>Annee</th>
+        <th>montant</th>
+      
         <th>Date</th>
        
          
@@ -57,7 +53,7 @@
   
     <%
      String id=request.getParameter("id");  
-        List <Factur> list=FacturDAO.getAllRecords(Integer.parseInt(id));
+        List <Factur> list=FacturDAO.AllRecords(Integer.parseInt(id));
         %> 
     
     
@@ -69,16 +65,12 @@
       <tr>
         <td><%= s.getCode_factur() %></td>
         <td><%= s.getCode_compteur()   %></td>
-        <td><%= s.getIndex_nouveau()   %></td>
-        <td><%= s.getIndex_precedent() %></td>
-        <td><%= s.getCONSOMMATION() %></td>
+       
         <td><%= s.getMontant_total() %></td>
         <td><%= s.getMontant_nouveau() %></td>
-        <td><%= s.getTVA() %></td>
-        <td><%= s.getMois() %></td>
-        <td><%= s.getAnne() %></td>
+      
         <td><%= s.getDate() %></td>
-       <td><a href=" viewFactur.jsp?id=<%= s.getCode_factur() %>" target="home" >View</a></td>
+       <td><a href=" Recuview.jsp?id=<%= s.getCode_factur() %>" target="home" >View</a></td>
       
       
       </tr>

@@ -43,10 +43,10 @@ public class servlet extends jakarta.servlet.http.HttpServlet {
 		login.setPassword(password);
 		
 		if (dao.validate(login))
-		{
+		{HttpSession session=request.getSession();  
+	        session.setAttribute("username",username);  
 			response.sendRedirect("index.jsp");
-			HttpSession session=request.getSession();  
-	        session.setAttribute("name",username);  
+			
 		}
 		else 
 		{
